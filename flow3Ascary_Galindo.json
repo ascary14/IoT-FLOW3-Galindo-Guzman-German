@@ -7,39 +7,6 @@
         "info": ""
     },
     {
-        "id": "1d5d05b8.c28832",
-        "type": "ui_switch",
-        "z": "867fb348.0b131",
-        "name": "",
-        "label": "Switch - Label",
-        "tooltip": "",
-        "group": "e6d23854.a005",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "topic",
-        "topicType": "msg",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": false,
-        "x": 100,
-        "y": 480,
-        "wires": [
-            [
-                "2fc80ef7.9c1c22"
-            ]
-        ]
-    },
-    {
         "id": "e1a18a12.e449e8",
         "type": "ui_text_input",
         "z": "867fb348.0b131",
@@ -284,7 +251,7 @@
         "type": "mqtt out",
         "z": "867fb348.0b131",
         "name": "",
-        "topic": "codigoIoT/SIC/flow3/sw",
+        "topic": "codigoIoT/SIC/flow3/temp",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -293,7 +260,7 @@
         "correl": "",
         "expiry": "",
         "broker": "edd3004a.11da88",
-        "x": 430,
+        "x": 490,
         "y": 480,
         "wires": []
     },
@@ -307,12 +274,12 @@
         "rules": [
             {
                 "t": "gte",
-                "v": "30",
+                "v": "45",
                 "vt": "num"
             },
             {
                 "t": "lt",
-                "v": "30",
+                "v": "45",
                 "vt": "num"
             }
         ],
@@ -439,7 +406,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "Hace calor en la diiiscooo",
+                "to": "",
                 "tot": "str"
             }
         ],
@@ -457,14 +424,89 @@
         ]
     },
     {
-        "id": "e6d23854.a005",
-        "type": "ui_group",
-        "name": "Control - Group 3",
-        "tab": "e697afcd.588c1",
-        "order": 3,
-        "disp": true,
-        "width": "6",
-        "collapse": false
+        "id": "c58e51f846875793",
+        "type": "function",
+        "z": "867fb348.0b131",
+        "name": "",
+        "func": "var_ran = Math.floor(Math.random() * 35) + 10;\nmsg.payload = \"{\\\"ID\\\":\\\"German Ascary Galindo\\\",\\\"Temp\\\":\\\"\"+var_ran+\"+\\\",\\\"mnsg\\\":\\\"Prueba flow 3\\\"}\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 560,
+        "wires": [
+            [
+                "4894581b0f222b54",
+                "2fc80ef7.9c1c22"
+            ]
+        ]
+    },
+    {
+        "id": "e8ee31e0173b8719",
+        "type": "inject",
+        "z": "867fb348.0b131",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 560,
+        "wires": [
+            [
+                "c58e51f846875793"
+            ]
+        ]
+    },
+    {
+        "id": "4894581b0f222b54",
+        "type": "debug",
+        "z": "867fb348.0b131",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "39b1c2b4478420bc",
+        "type": "exec",
+        "z": "867fb348.0b131",
+        "command": "vcgencmd measure_temp",
+        "addpay": "temperatura",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "medidor de temperatura",
+        "x": 160,
+        "y": 680,
+        "wires": [
+            [],
+            [],
+            []
+        ]
     },
     {
         "id": "95858c89.8dac2",
@@ -510,6 +552,16 @@
         "willPayload": "",
         "willMsg": {},
         "sessionExpiry": ""
+    },
+    {
+        "id": "e6d23854.a005",
+        "type": "ui_group",
+        "name": "Control - Group 3",
+        "tab": "e697afcd.588c1",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "e697afcd.588c1",
