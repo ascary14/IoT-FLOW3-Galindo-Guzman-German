@@ -65,7 +65,7 @@
         "height": 0,
         "label": "chart",
         "chartType": "line",
-        "legend": "false",
+        "legend": "true",
         "xformat": "HH:mm:ss",
         "interpolate": "linear",
         "nodata": "",
@@ -428,7 +428,7 @@
         "type": "function",
         "z": "867fb348.0b131",
         "name": "",
-        "func": "var_ran = Math.floor(Math.random() * 35) + 10;\nmsg.payload = \"{\\\"ID\\\":\\\"German Ascary Galindo\\\",\\\"Temp\\\":\\\"\"+var_ran+\"+\\\",\\\"mnsg\\\":\\\"Prueba flow 3\\\"}\"\n\nreturn msg;",
+        "func": "var_ran = Math.floor(Math.random() * 35) + 10;\nvar_temp = msg.temp;\nmsg.payload = \"{\\\"ID\\\":\\\"German Ascary Galindo\\\",\\\"Temp\\\":\\\"\"+msg.payload +\"\\\",\\\"mnsg\\\":\\\"prueba con uso de cpu\\\"}\"\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -457,7 +457,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1",
+        "repeat": "5",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -467,7 +467,7 @@
         "y": 560,
         "wires": [
             [
-                "c58e51f846875793"
+                "120398ac59374e71"
             ]
         ]
     },
@@ -489,23 +489,20 @@
         "wires": []
     },
     {
-        "id": "39b1c2b4478420bc",
-        "type": "exec",
+        "id": "120398ac59374e71",
+        "type": "cpu",
         "z": "867fb348.0b131",
-        "command": "vcgencmd measure_temp",
-        "addpay": "temperatura",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "medidor de temperatura",
+        "name": "Medidor temperatura",
+        "msgCore": false,
+        "msgOverall": true,
+        "msgArray": false,
+        "msgTemp": false,
         "x": 160,
-        "y": 680,
+        "y": 700,
         "wires": [
-            [],
-            [],
-            []
+            [
+                "c58e51f846875793"
+            ]
         ]
     },
     {
